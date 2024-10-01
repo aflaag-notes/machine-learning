@@ -93,9 +93,7 @@
     
     \section{Learning problems}
 
-    \subsection{TODO}
-    
-    A \tbf{machine learning problem} is defined by the following \tit{three components}.
+    A \tbf{learning problem} is defined by the following \tit{three components}.
 
     \begin{frameddefn}{Learning}
         \tbf{Learning} is defined as \tit{improving}, through \tit{experience} $E$, at some \tit{task} $T$, with respect to a \tit{performance measure} $P$.
@@ -115,7 +113,7 @@
 
     For this particular game, a possible \tbf{target function} (the function that would be useful to learn in order to solve the learning problem) could be the following $$\func{\mathrm{ChooseMove}}{\mathrm{Board}}{\mathrm{Move}}$$ which, given a board state, returns the best move to perform, but also $$\func{V}{\mathrm{Board}}{\R}$$ which assigns a \tit{score} to a given board.
 
-    For instance, consider the following target function: $$\hat V(b) = w_0 + w_1 \cdot bp(b) + w_2 \cdot rp(b) + w_3 \cdot bk(b) + w_4 \cdot rk(b) + w_5 \cdot bt(b) + w_6 \cdot rt(b)$$ where $b$ is a given \tit{board state}, and
+    For instance, consider the following target function: $$V(b) = w_0 + w_1 \cdot bp(b) + w_2 \cdot rp(b) + w_3 \cdot bk(b) + w_4 \cdot rk(b) + w_5 \cdot bt(b) + w_6 \cdot rt(b)$$ where $b$ is a given \tit{board state}, and
 
     \begin{itemize}
         \item $bp(b)$ is the number of \tit{black pieces}
@@ -126,10 +124,71 @@
         \item $rt(b)$ is the number of \tit{black pieces threatened by red pieces}
     \end{itemize}
 
-    In this formulation, $\hat V$ is a \tit{linear compbination} of multiple coefficients $w_i$, which are unknown. Therefore, in this example \tbf{goal} of the \tit{learning problem} is to \tbf{learn $\hat V$}, or equivalently, to \tbf{estimate each coefficient $w_i$}. Note that this function \tit{can be computed}.
+    In this formulation, $V$ is a \tit{linear compbination} of multiple coefficients $w_i$, which are unknown. Therefore, in this example \tbf{goal} of the \tit{learning problem} is to \tbf{learn $V$}, or equivalently, to \tbf{estimate each coefficient $w_i$}. Note that this function \tit{can be computed}.
     
     \begin{frameddefn}{Dataset}
-        Let $V(b)$ be the \tit{true target function} (always \tit{unknown}), $\hat V(b)$ be the \tit{learned function} --- an approximation of $V(b)$ computed by the \tit{learning algorithm} --- and $V_t(b)$ the \tit{training value} of $b$ in the \tit{training data}. A \tbf{dataset} is a set of samples, denoted as $$D = \{(b_i, V_t(b_i)) \mid i \in [1, n]\}$$
+        Let $V(b)$ be the \tit{true target function} (always \tit{unknown}), $\hat V(b)$ be the \tit{learned function} --- an approximation of $V(b)$ computed by the \tit{learning algorithm} --- and $V_t(b)$ the \tit{training value} of $b$ in the \tit{training data}. Lastly, let $X$ be an input domain.
+
+        Given a set of $n$ inputs $$X_D := \{b_i \mid i \in [1, n]\} \subset X$$ a \tbf{dataset} is a set of \tit{samples}, and it is denoted as $$D = \{(b_i, V_t(b_i)) \mid b_i \in X_D\}$$
     \end{frameddefn}
+
+    In the previous example, $\hat V(b)$ would have the following form $$\hat V(b) = \hat w_0 + \hat w_1 \cdot bp(b) + \hat w_2 \cdot rp(b) + \hat w_3 \cdot bk(b) + \hat w_4 \cdot rk(b) + \hat w_5 \cdot bt(b) + \hat w_6 \cdot rt(b)$$
+
+    \begin{frameddefn}{Machine learning problem}
+        A \tbf{machine learning problem} is the \tit{task} of \tit{learning a function} $\func{f}{X}{Y}$, given a \tit{dataset} $D$.
+
+        To \tbf{learn a function} $f$ means \tit{computing an approximation function} $\hat f$ that returns values as close as possible to $f$, especialy for values \tit{outside $D$} $$\forall x \in  X - X_D \quad \hat f(x) \approx f(x)$$
+    \end{frameddefn}
+
+    Note that $\abs{X_D} << \abs{X}$, which makes the task of learning $f$ quite challenging.
+
+    There are multiple types of Machine Learning (ML) problems, such as \tit{dataset type} and \tit{target function type}. The various ML problems will be discussed in later sections.
+
+    \begin{frameddefn}{Hypothesis space}
+        Given an ML problem, an \tbf{hypothesis} $h$ for the problem is an approximation of its target function, and its \tbf{hypothesis speace} $H$ is the set of all possible hypothesis, i.e. the set of all functions that can be learned, which correspond to all the approximations of the target function of the ML problem.
+    \end{frameddefn}
+
+    Given this definition, \tbf{learning} can be defined as \tit{searching in the hypothesis space}, using the dataset $D$ and some performance function $P$ of the given ML problem $$h^* = \argmax_{h \in H}{P(h, D)}$$ A \tbf{performance measure} is a metric that evaluates the correctness of a given hypothesis, by comparing $h(x)$ and $f(x)$ for all $x \in X_D$, where $f$ is the target function of the ML problem.
+
+    \begin{example}[Hypothesis]
+        Consider the ML problem of \tit{classifying natural numbers into primes and composite numbers}. The \tit{target function} would be the following $$\func{f}{\N}{\{\Primes, \N - \Primes\}}$$ A dataset $D$ for this ML problem would look like the following example $$D = \{(1, \Primes), (3, \Primes), (5, \Primes), (6, \N - \Primes), (8, \N - \Primes), (10, \N - \Primes)\}$$ The hypothesis space is the set of all possible \tit{classification functions} of the form $$\func{h_A}{\N}{\{A, \N - A\}}$$
+    \end{example}
+
+    placeholder \todo{repr vs gener??}
+
+    \begin{frameddefn}{Hypothesis consistency}
+        Given an ML problem defined by a target function $\func{c}{X}{Y}$ --- for some sets $X$ and $Y$ --- and a training dataset $D = \{(x, c(x))\}$, an hypothesis $h \in H$ is said to be \tbf{consistent with $D$} if and only if $$\forall x \in D \quad h(x) = c(x)$$
+    \end{frameddefn}
+
+    Note that this definition is important, because $h(x)$ can be evaluated for any $x \in X$, but only inputs that appear in the dataset can be verified, for which $c(x)$ is known. Therefore, \tit{consistency} should be desirable for an hypothesis, since the real goal of an ML system is to find \tit{the best} $h$ that predicts correct values of $h(x')$, for instances $x' \notin X_D$, with respect to the unknown values $c(x')$.
+
+    \begin{frameddefn}{Inductive learning hypothesis}
+        The \tbf{inductive learning hypothesis} states the following: \displayquote{Given an ML problem, any hypothesis that approximates the target function well over a sufficiently large set of training examples, will also approximate the target function well over other unobserved examples.}
+    \end{frameddefn}
+
+    \begin{frameddefn}{Version space}
+        The \tbf{version space} $VS_{H, D}$ of an ML problem, is the subset of hypotheses of $H$ consistent with all training examples in $D$. Using symbols $$VS_{H, D}: = \{h \in H \mid \forall x \in X_D \quad h(x) = c(x)\} \subset H$$
+    \end{frameddefn}
+
+    \begin{framedalgo}{List-Then-Eliminate}
+        Given an ML problem, the algorithm returns $VS_{H, D}$. \\
+
+        \hrule
+
+        \quad
+        \label{alg:lte}
+        \begin{algorithmic}[1]
+            \Function{listThenEliminate}{$X_D$, $D$}
+                \State $VS_{H, D} := H$ \Comment{initially it contains any hypothesis}
+                \For{$(x, c(x)) \in D$}
+                    \State $H' := \{h \in H \mid h(x) \neq c(x)\}$ \Comment{set of inconsistent hypotheses for $x$}
+                    \State $VS_{H, D} = VS_{H, D} - H'$
+                \EndFor
+                \State \tbf{return} $VS_{H,D}$
+            \EndFunction
+        \end{algorithmic}
+    \end{framedalgo}
+
+    This algorithm can theoretically find the version space for any ML problem, but \tit{it is not computable}, as it requires to \tbf{enumerate all the possible hypotheses}.
 
 \end{document}
