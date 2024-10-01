@@ -91,8 +91,45 @@
     
     \chapter{TODO}
     
-    \section{TODO}
-    
+    \section{Learning problems}
+
     \subsection{TODO}
+    
+    A \tbf{machine learning problem} is defined by the following \tit{three components}.
+
+    \begin{frameddefn}{Learning}
+        \tbf{Learning} is defined as \tit{improving}, through \tit{experience} $E$, at some \tit{task} $T$, with respect to a \tit{performance measure} $P$.
+    \end{frameddefn}
+
+    \begin{example}[Machine Learning problem]
+        Consider the problem of learning how to play \href{https://en.wikipedia.org/wiki/Checkers}{Checkers}; in this example, the \tit{task} $T$ is to be able to play the game itself, the \tit{performance measure} $P$ could be the percentage of games won in a tournament, but \tit{experience} $E$ is more complex.
+    \end{example}
+
+    In general, \tit{experience} can be acquired in several ways:
+
+    \begin{itemize}
+        \item in this example, a human expert may suggest optimal moves for each configuration of the board; however, this approach may not generalize for any problem, as human experts may not exists for certain tasks;
+        \item alternatively, the computer may play against a human, and automatically detect win, draw and loss configurations;
+        \item lastly, the computer may play against itself, learning from its own successes and failures.
+    \end{itemize}
+
+    For this particular game, a possible \tbf{target function} (the function that would be useful to learn in order to solve the learning problem) could be the following $$\func{\mathrm{ChooseMove}}{\mathrm{Board}}{\mathrm{Move}}$$ which, given a board state, returns the best move to perform, but also $$\func{V}{\mathrm{Board}}{\R}$$ which assigns a \tit{score} to a given board.
+
+    For instance, consider the following target function: $$\hat V(b) = w_0 + w_1 \cdot bp(b) + w_2 \cdot rp(b) + w_3 \cdot bk(b) + w_4 \cdot rk(b) + w_5 \cdot bt(b) + w_6 \cdot rt(b)$$ where $b$ is a given \tit{board state}, and
+
+    \begin{itemize}
+        \item $bp(b)$ is the number of \tit{black pieces}
+        \item $rp(b)$ is the number of \tit{red pieces}
+        \item $bk(b)$ is the number of \tit{black kings}
+        \item $rk(b)$ is the number of \tit{red kings}
+        \item $bt(b)$ is the number of \tit{red pieces threatened by black pieces}
+        \item $rt(b)$ is the number of \tit{black pieces threatened by red pieces}
+    \end{itemize}
+
+    In this formulation, $\hat V$ is a \tit{linear compbination} of multiple coefficients $w_i$, which are unknown. Therefore, in this example \tbf{goal} of the \tit{learning problem} is to \tbf{learn $\hat V$}, or equivalently, to \tbf{estimate each coefficient $w_i$}. Note that this function \tit{can be computed}.
+    
+    \begin{frameddefn}{Dataset}
+        Let $V(b)$ be the \tit{true target function} (always \tit{unknown}), $\hat V(b)$ be the \tit{learned function} --- an approximation of $V(b)$ computed by the \tit{learning algorithm} --- and $V_t(b)$ the \tit{training value} of $b$ in the \tit{training data}. A \tbf{dataset} is a set of samples, denoted as $$D = \{(b_i, V_t(b_i)) \mid i \in [1, n]\}$$
+    \end{frameddefn}
 
 \end{document}
