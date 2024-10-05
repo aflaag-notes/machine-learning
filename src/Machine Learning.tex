@@ -93,13 +93,15 @@
     
     \section{Learning problems}
 
+    \subsection{Learning}
+
     A \tbf{learning problem} is defined by the following \tit{three components}.
 
     \begin{frameddefn}{Learning}
         \tbf{Learning} is defined as \tit{improving}, through \tit{experience} $E$, at some \tit{task} $T$, with respect to a \tit{performance measure} $P$.
     \end{frameddefn}
 
-    \begin{example}[Machine Learning problem]
+    \begin{example}[Learning problems]
         Consider the problem of learning how to play \href{https://en.wikipedia.org/wiki/Checkers}{Checkers}; in this example, the \tit{task} $T$ is to be able to play the game itself, the \tit{performance measure} $P$ could be the percentage of games won in a tournament, but \tit{experience} $E$ is more complex.
     \end{example}
 
@@ -126,6 +128,8 @@
 
     In this formulation, $V$ is a \tit{linear compbination} of multiple coefficients $w_i$, which are unknown. Therefore, in this example \tbf{goal} of the \tit{learning problem} is to \tbf{learn $V$}, or equivalently, to \tbf{estimate each coefficient $w_i$}. Note that this function \tit{can be computed}.
     
+    \subsection{Machine Learning problems}
+
     \begin{frameddefn}{Dataset}
         Let $V(b)$ be the \tit{true target function} (always \tit{unknown}), $\hat V(b)$ be the \tit{learned function} --- an approximation of $V(b)$ computed by the \tit{learning algorithm} --- and $V_t(b)$ the \tit{training value} of $b$ in the \tit{training data}. Lastly, let $X$ be an input domain.
 
@@ -134,7 +138,7 @@
 
     In the previous example, $\hat V(b)$ would have the following form $$\hat V(b) = \hat w_0 + \hat w_1 \cdot bp(b) + \hat w_2 \cdot rp(b) + \hat w_3 \cdot bk(b) + \hat w_4 \cdot rk(b) + \hat w_5 \cdot bt(b) + \hat w_6 \cdot rt(b)$$
 
-    \begin{frameddefn}{Machine learning problem}
+    \begin{frameddefn}{Machine Learning problem}
         A \tbf{machine learning problem} is the \tit{task} of \tit{learning a function} $\func{f}{X}{Y}$, given a \tit{dataset} $D$.
 
         To \tbf{learn a function} $f$ means \tit{computing an approximation function} $\hat f$ that returns values as close as possible to $f$, especialy for values \tit{outside $D$} $$\forall x \in  X - X_D \quad \hat f(x) \approx f(x)$$
@@ -144,11 +148,13 @@
 
     There are multiple types of Machine Learning (ML) problems, such as \tit{dataset type} and \tit{target function type}. The various ML problems will be discussed in later sections.
 
+    \subsection{Hypotheses}
+    
     \begin{frameddefn}{Hypothesis space}
         Given an ML problem, an \tbf{hypothesis} $h$ for the problem is an approximation of its target function, and its \tbf{hypothesis speace} $H$ is the set of all possible hypothesis, i.e. the set of all functions that can be learned, which correspond to all the approximations of the target function of the ML problem.
     \end{frameddefn}
 
-    Given this definition, \tbf{learning} can be defined as \tit{searching in the hypothesis space}, using the dataset $D$ and some performance function $P$ of the given ML problem $$h^* = \argmax_{h \in H}{P(h, D)}$$ A \tbf{performance measure} is a metric that evaluates the correctness of a given hypothesis, by comparing $h(x)$ and $f(x)$ for all $x \in X_D$, where $f$ is the target function of the ML problem.
+    Given this definition, \tbf{learning} can be defined as \tit{searching in the hypothesis space}, using the dataset $D$ and some performance function $P$ of the given ML problem $$h^* \in \argmax_{h \in H}{P(h, D)}$$ A \tbf{performance measure} is a metric that evaluates the correctness of a given hypothesis, by comparing $h(x)$ and $f(x)$ for all $x \in X_D$, where $f$ is the target function of the ML problem.
 
     \begin{example}[Hypothesis]
         Consider the ML problem of \tit{classifying natural numbers into primes and composite numbers}. The \tit{target function} would be the following $$\func{f}{\N}{\{\Primes, \N - \Primes\}}$$ A dataset $D$ for this ML problem would look like the following example $$D = \{(1, \Primes), (3, \Primes), (5, \Primes), (6, \N - \Primes), (8, \N - \Primes), (10, \N - \Primes)\}$$ The hypothesis space is the set of all possible \tit{classification functions} of the form $$\func{h_A}{\N}{\{A, \N - A\}}$$
@@ -165,6 +171,8 @@
     \begin{frameddefn}{Inductive learning hypothesis}
         The \tbf{inductive learning hypothesis} states the following: \displayquote{Given an ML problem, any hypothesis that approximates the target function well over a sufficiently large set of training examples, will also approximate the target function well over other unobserved examples.}
     \end{frameddefn}
+
+    placeholder \todo{paragraph?}
 
     \begin{frameddefn}{Version space}
         The \tbf{version space} $VS_{H, D}$ of an ML problem, is the subset of hypotheses of $H$ consistent with all training examples in $D$. Using symbols $$VS_{H, D}: = \{h \in H \mid \forall x \in X_D \quad h(x) = c(x)\} \subset H$$
@@ -190,5 +198,39 @@
     \end{framedalgo}
 
     This algorithm can theoretically find the version space for any ML problem, but \tit{it is not computable}, as it requires to \tbf{enumerate all the possible hypotheses}.
+
+    \subsection{Representation issues}
+
+    Consider a \tit{binary classification} ML problem --- commonly referred to as \tbf{Concept Learning} (CL) --- , and its hypotheses space $H$; usually, every hypothesis is associated to the set of the instances that are classified as 1 by such hypothesis $$\funcmap{\phi}{H}{\powerset(S)}{h}{\{x \in X \mid h(x) = 1\}}$$ note that it is not always true that, for any set $S \subseteq X$, there exists an $h$ such that for each $x \in S$, $h(x) = 1$. Assume that, for the considered CL problem, there exists an hypothesis space $H'$ such that $$\forall S \subseteq \powerset(X) \quad \exists h \in H' \mid S = \{x \in °X \mid h(x)  = 1\}$$ therefore $H'$ can represent \tit{any subset} of $X$. Now, consider the following:
+
+    \begin{itemize}
+        \item $\forall x' \notin X_D \quad \exists h', h'' \in VS_{H', D} : \soe{l}{h'(x) = 1 \\ h''(x) = 0}$ because $H'$ can represent any subset $S \subseteq X$ --- therefore, for \tit{all} inputs outside $X_D$, a system using $H'$ would not be able to perform a prediction;
+        \item $\exists x' \notin X_D \mid \exists h', h'' \in VS_{H, D} : \soe{l}{h'(x) = 1 \\ h''(x) = 0}$ because $H$ represents some subsets $S \subseteq X$ ---  therefore, for \tit{some} inputs outside $X_D$, a system using $H$ would not be able to perform a prediction;
+        \item $h^* \in \argmax_{h \in H}{P(h, D)}$ is such that for all $x' \notin X_D$, $h^*(x)$ is either 1 or 0 --- therefore, for \tit{all} inputs outside $X_D$ a system using $h^*$ would be able to perform a prediction.
+    \end{itemize}
+
+    Note that $H'$ is the most powerful hypothesis space, because it can represent \tit{any subset} of $X$, $H$ is less powerful than $X$ because it can represent \tit{some subsets} of $X$, and $h^*$ will only represent \tit{one} subset of $X$, meaning that it is the least powerful representation. However, the more information the hypothesis space encapsulates about the values in $X_D$, the harder it becomes to \tbf{generalize} and \tbf{predict} values for samples \tit{outside} $X_D$. In other words, a more expressive hypothesis space can \tbf{overfit} to the data, making it more difficult to make accurate predictions on unseen data.
+    
+    \begin{example}[Representation issues]
+        Consider the CL problem of enclosing all integer points on a 2D plane \tit{labeled} with a +, thus
+
+        \begin{itemize}
+            \item $X$ is the set of integer points on a 2D plane \tit{labeled} with + or $-$;
+            \item $Y$ is $\{+,-\}$;
+            \item $D$ is a set of pairs $(p, y)$ where $p$ is an integer point, and $y$ is its label.
+        \end{itemize}
+
+        Consider the hypothesis space $H$ that is composed of all the rectangles in the 2D plane with edges parallel to the axes; depending on the configuration of the points in $X_D$, $H$ may not be able to enclose all the points with a + in $X_D$. Now, consider the hypothesis space $H'$ such that each element in $H'$ is the \tit{union} of the region enclosed by multiple rectangles with edges parallel to the axes; this secon hypothesis space is clearly more powerful, because it can represent \tit{any} possible configuration of the input points with a  + in $X_D$.
+
+        However, for any given point $x'$ that \tit{is not} in $X_D$:
+
+        \begin{itemize}
+            \item it is \tit{always} possible to find two elements in $VS_{H', D}$ wich will disagree whether $x'$ has a + label or not;
+            \item there \tit{may} be two elements in $VS_{H, D}$ which will disagree whether $x'$ has a + label or not;
+            \item given $h^*$, it is \tit{always} possible to \tit{predict} whether $x'$ has a + label or not.
+        \end{itemize}
+    \end{example}
+
+    In machine learning, the concept of \tbf{learning bias} is crucial for improving a model's ability to generalize. A good learning bias helps guide the learning algorithm towards patterns in the data that are useful for predicting unseen samples, increasing the system's generalization power. This bias allows the model to make accurate predictions on new data that wasn't part of the training set. Without such a bias, a system would simply \tbf{memorize} the dataset, failing to predict values for samples outside the training set, rendering it \tit{ineffective} in real-world applications. Systems lacking generalization capabilities would be of little use, as they wouldn't be able to provide meaningful predictions beyond the data they were trained on.
 
 \end{document}
