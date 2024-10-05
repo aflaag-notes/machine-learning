@@ -148,7 +148,7 @@
 
     There are multiple types of Machine Learning (ML) problems, such as \tit{dataset type} and \tit{target function type}. The various ML problems will be discussed in later sections.
 
-    \subsection{Hypotheses}
+    \subsection{Hypothesis spaces}
     
     \begin{frameddefn}{Hypothesis space}
         Given an ML problem, an \tbf{hypothesis} $h$ for the problem is an approximation of its target function, and its \tbf{hypothesis speace} $H$ is the set of all possible hypothesis, i.e. the set of all functions that can be learned, which correspond to all the approximations of the target function of the ML problem.
@@ -160,7 +160,11 @@
         Consider the ML problem of \tit{classifying natural numbers into primes and composite numbers}. The \tit{target function} would be the following $$\func{f}{\N}{\{\Primes, \N - \Primes\}}$$ A dataset $D$ for this ML problem would look like the following example $$D = \{(1, \Primes), (3, \Primes), (5, \Primes), (6, \N - \Primes), (8, \N - \Primes), (10, \N - \Primes)\}$$ The hypothesis space is the set of all possible \tit{classification functions} of the form $$\func{h_A}{\N}{\{A, \N - A\}}$$
     \end{example}
 
-    placeholder \todo{repr vs gener??}
+    \begin{frameddefn}{Inductive learning hypothesis}
+        The \tbf{inductive learning hypothesis} states the following: \displayquote{Given an ML problem, any hypothesis that approximates the target function well over a sufficiently large set of training examples, will also approximate the target function well over other unobserved examples.}
+    \end{frameddefn}
+
+    \subsection{Version spaces}
 
     \begin{frameddefn}{Hypothesis consistency}
         Given an ML problem defined by a target function $\func{c}{X}{Y}$ --- for some sets $X$ and $Y$ --- and a training dataset $D = \{(x, c(x))\}$, an hypothesis $h \in H$ is said to be \tbf{consistent with $D$} if and only if $$\forall x \in D \quad h(x) = c(x)$$
@@ -168,21 +172,15 @@
 
     Note that this definition is important, because $h(x)$ can be evaluated for any $x \in X$, but only inputs that appear in the dataset can be verified, for which $c(x)$ is known. Therefore, \tit{consistency} should be desirable for an hypothesis, since the real goal of an ML system is to find \tit{the best} $h$ that predicts correct values of $h(x')$, for instances $x' \notin X_D$, with respect to the unknown values $c(x')$.
 
-    \begin{frameddefn}{Inductive learning hypothesis}
-        The \tbf{inductive learning hypothesis} states the following: \displayquote{Given an ML problem, any hypothesis that approximates the target function well over a sufficiently large set of training examples, will also approximate the target function well over other unobserved examples.}
-    \end{frameddefn}
-
-    placeholder \todo{paragraph?}
-
     \begin{frameddefn}{Version space}
         The \tbf{version space} $VS_{H, D}$ of an ML problem, is the subset of hypotheses of $H$ consistent with all training examples in $D$. Using symbols $$VS_{H, D}: = \{h \in H \mid \forall x \in X_D \quad h(x) = c(x)\} \subset H$$
     \end{frameddefn}
 
+    Compute version spaces is not a straightforward task. For instance, consider the following algorithm.
+
     \begin{framedalgo}{List-Then-Eliminate}
         Given an ML problem, the algorithm returns $VS_{H, D}$. \\
-
         \hrule
-
         \quad
         \label{alg:lte}
         \begin{algorithmic}[1]
@@ -211,6 +209,8 @@
 
     Note that $H'$ is the most powerful hypothesis space, because it can represent \tit{any subset} of $X$, $H$ is less powerful than $X$ because it can represent \tit{some subsets} of $X$, and $h^*$ will only represent \tit{one} subset of $X$, meaning that it is the least powerful representation. However, the more information the hypothesis space encapsulates about the values in $X_D$, the harder it becomes to \tbf{generalize} and \tbf{predict} values for samples \tit{outside} $X_D$. In other words, a more expressive hypothesis space can \tbf{overfit} to the data, making it more difficult to make accurate predictions on unseen data.
     
+    The process of reducing the \tbf{representation power}, in favor of \tbf{generalization power} --- i.e., reducing the hypothesis space from $H'$ to $H$ --- is called \tbf{language bias}, because it is a \tit{restriction}, a \tit{bias}, on the language, used to represent the hypothesis. Moreover, the process of \tit{selecting} one particular hypothesis among the set of possible ones --- i.e., choosing $h^* \in H$ --- is called \tbf{search bias}. Note that, in some contexts, it is also possible to choose an hypothesis $h^*$ within $H'$ directly.
+
     \begin{example}[Representation issues]
         Consider the CL problem of enclosing all integer points on a 2D plane \tit{labeled} with a +, thus
 
@@ -232,5 +232,90 @@
     \end{example}
 
     In machine learning, the concept of \tbf{learning bias} is crucial for improving a model's ability to generalize. A good learning bias helps guide the learning algorithm towards patterns in the data that are useful for predicting unseen samples, increasing the system's generalization power. This bias allows the model to make accurate predictions on new data that wasn't part of the training set. Without such a bias, a system would simply \tbf{memorize} the dataset, failing to predict values for samples outside the training set, rendering it \tit{ineffective} in real-world applications. Systems lacking generalization capabilities would be of little use, as they wouldn't be able to provide meaningful predictions beyond the data they were trained on.
+
+    \subsection{Data noise issues}
+
+    In real-world applications, datasets often contain \tbf{noise}, which refers to \tit{irrelevant or erroneous information} that can distort the true underlying patterns in the data. Noise can come from a variety of sources, including measurement errors, data entry mistakes, incomplete data, or random fluctuations in the system being studied. This noise complicates the \tit{learning process}, as machine learning models may \tit{struggle} to distinguish between true \tit{signal} and \tit{noise}, potentially leading to \tbf{overfitting}.
+
+    A noisy data-point in a dataset $D$ can be formulated as a pair $(x_i, y_i) \in D$, where $y_i \neq c(x_i)$. This means that there may be \tit{no consistent hypothesis} with noisy data, i.e. $VS_{H, D} = \varnothing$. In these scenarios, statisticale methods must be employed to implement robust algorithms, in order to \tit{reduce} the noise in the data.
+
+    \section{Performance evaluation}
+
+    \subsection{Errors and accuracy}
+
+    Consider the following typical ML classification problem:
+
+    \begin{itemize}
+        \item $\func{f}{X}{Y}$ is some target function;
+        \item $\mathcal D$ is the \tit{probability distribution} over $X$ (note that $\mathcal D$ \underline{may not be equal to} $D$);
+        \item $S$ is a sample of $n$ instances drawn from $X$, according to the distribution $\mathcal D$, for which $f(x)$ is known.
+    \end{itemize}
+
+    Additionally, consider an hypothesis $h$, solution of a learning problem obtained from $S$. What is the \tit{best estimate} of the accuracy of $h$, over future instances drawn from $\mathcal D$? What is the \tit{probable error} in this accuracy estimate?
+
+    \begin{frameddefn}{True error}
+        Given an ML problem, the \tbf{true error} of an hypothesis $h$ --- with respect to the target function $f$ of the problem, and to the distribution $\mathcal D$ --- is the probability that $h$ will \tit{misclassify} an instance drawn at random according to $\mathcal D$: $$\mathrm{error}_\mathcal D (h) := \Pr_{x \in \mathcal D}{(f(x) \neq h(x))}$$
+    \end{frameddefn}
+
+    Note that the \tbf{true error} of an ML problem \tit{does not} refer to samples in the dataset, but to \tit{any sample} in the input space, extracted accordin to $\mathcal D$. Moreover, note that this definition is \tit{not operational}, and this term \tbf{cannot be computed}, because $f(x)$ \tit{is not known}. In fact, this is a \tbf{target error}. Instead, consider the following type of error.
+
+    \begin{frameddefn}{Sample error}
+        Given an ML problem, the \tbf{sample error} of an hypothesis $h$ --- with respect to the target function $f$ of the problem, and to the data sample $S$ --- is the proportion of examples that $h$ misclassifies: $$\mathrm{error}_S(h) := \dfrac{1}{n} \sum_{x \in S}{\delta(f(x), h(x))}$$ where $\delta$ is an indicator variable such that $$\delta(f(x), h(x)) := \soe{ll}{1 & f(x) \neq h(x) \\ 0 & f(x) = h(x)}$$
+    \end{frameddefn}
+
+    In other words, the \tbf{sample error} is defined by a \tit{counting function}, which counts how many examples $h$ has misclassified, normalized by $\abs S$.
+
+    The \tbf{goal} of a learning system is to be \tbf{accurate} in $h(x)$, for each $x \notin S$, and \tbf{accuracy} is defined as follows.
+
+    \begin{frameddefn}{Accuracy}
+        Given an ML problem, the \tbf{accuracy} of an hypothesis $h$ is defined as follows: $$\mathrm{accuracy}(h) := 1 - \mathrm{error}(h)$$
+    \end{frameddefn}
+
+    Note that, if $\mathrm{accuracy}_S(h)$ is very high, but $\mathrm{accuracy}_\mathcal D(h)$ is poor, the system considered is of little use.
+
+    In summary, the \tit{true error} cannot be computed, but the \tit{sample error} can be computed only on a small data sample, and it is crucial to ensure that the \tit{sample error} closely approximates the \tit{true error}, in order to achieve high accuracy.
+
+    Therefore, how well does $\mathrm{error}_S(h)$ estimate $\mathrm{error}_\mathcal D(h)$?
+
+    \begin{frameddefn}{Estimation bias}
+        The \tbf{estimation bias} is defined as follows: $$\mathrm{bias} := E[\mathrm{error}_S(h)] - \mathrm{error}_\mathcal D(h)$$ where $E[\mathrm{error}_S(h)]$ is the expected value of the \tit{sample error}, i.e. the weighted average over all the possible samples $S$ --- in this definition, $S$ is treated as a random variable.
+    \end{frameddefn}
+
+    Note that, although it is impossible that $\mathrm{error}_S(h) = \mathrm{error}_\mathcal D(h)$ we can say that if $\mathrm{bias} = 0$, then the \tit{sample error} is a \tbf{good estimator} for the \tit{true error}. This can be achieved through the following approaches.
+
+    \begin{itemize}
+        \item \tbf{Compute $h$ and $S$ independently}: if $h$ is computed over the training set $S$, the $\mathrm{error}_S(h)$ is said to be \tbf{optimistically biased}, meaning that the error measured on the training set is likely to be \tbf{lower} than the \tit{true error} on unseen data. This happens because the hypothesis $h$ has been directly fitted to the training set, so it tend to perform well on it. However, it does not guarantee that the model will perform equally well on data outside the dataset. Therefore, $h$ should be computed on a dataset $D$, such that $D \cap S = \varnothing$.
+        \item \tbf{Employ a large enough sample $S$}: even with an \tbf{unbiased} training set $S$, $\mathrm{error}_S(h)$ may still differ from the \tit{true error}; this is because the training set $S$ is only a \tit{sample} of the \tit{full data distribution}. The smaller the training set, the more it is prone to variance, meaning that the performance of the hypothesis $h$ on the training set may fluctuate more, compared to the full distribution. A \tbf{smaller sample} provides \tit{less information} about the overall data distribution, leading to \tit{greater potential differences} between training error and true error.
+    \end{itemize}
+
+    How can \tbf{confidence} of the \tit{sample error}? What is the probability that $\mathrm{error}_S(h)$ is close to the \tit{true error}? For instance, consider the following approach.
+
+    \begin{example}[Confidence intervals]
+        If $S$ is a sample, containing $n \ge 30$ examples, drawn independently of a given hypothesis $h$ and of each other, then with approximately $N\%$ probability, $\mathrm{error}_\mathcal D(h)$ lies in the following interval $$\mathrm{error}_S(h) \pm z_N \sqrt{\dfrac{\mathrm{error}_S(h) \cdot \mathrm{accuracy}_S(h)}{n}}$$ where
+        \begin{table}[H]
+            \centering
+            \begin{tabular}{c|ccccccc}
+                $N\%$ & 50\% & 68\% & 80\& & 90\% & 95\% & 98\% & 99\% \\
+                \hline
+                $z_N$ & 0.67 & 1.00 & 1.28 & 1.64 & 1.96 & 2.33 & 2.58
+            \end{tabular}
+        \end{table}
+
+        Note that \tbf{increasing $n$ reduces the variance}, therefore it will me more probable that the \tit{true error} will fall within an interval.
+    \end{example}
+
+    In machine learning, the following algorithm is usually employed, which \tbf{guarantees} an \tbf{unbiased estimator} of the \tit{true error}.
+
+    \begin{framedalgo}{Unbiased estimator}
+        Given an ML problem, the algorithm returns an unbiased estimator for the \tit{true error}. \\
+        \hrule
+        \quad
+        \label{alg:unbiased_estimator}
+        \begin{algorithmic}[1]
+            \Function{unbiasedEstimator}{$D$, $S$}
+                \State TODO
+            \EndFunction
+        \end{algorithmic}
+    \end{framedalgo}
 
 \end{document}
