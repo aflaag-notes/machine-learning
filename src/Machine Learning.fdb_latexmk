@@ -1,17 +1,17 @@
 # Fdb version 4
-["bibtex Machine Learning"] 1728133333.23699 "Machine Learning.aux" "Machine Learning.bbl" "Machine Learning" 1728133354.71803 0
-  "./Machine_Learning-blx.bib" 1728133354.36436 344 e588c9a99e172ae2d6714a5a36257b2b ""
+["bibtex Machine Learning"] 1728384810.30599 "Machine Learning.aux" "Machine Learning.bbl" "Machine Learning" 1728385270.48857 0
+  "./Machine_Learning-blx.bib" 1728385270.09698 344 e588c9a99e172ae2d6714a5a36257b2b ""
   "/usr/share/texmf-dist/bibtex/bst/biblatex/biblatex.bst" 1716849630 65484 b7949c47a88ed6dca66ebc7a04577312 ""
-  "Machine Learning.aux" 1728133354.33436 2471 2d3424b597caca95bc4ae837a45cb468 "pdflatex"
+  "Machine Learning.aux" 1728385270.06032 2962 85793a9c76fcb83e8b593fdb6c18c44c "pdflatex"
   (generated)
   "Machine Learning.bbl"
   "Machine Learning.blg"
   (rewritten before read)
-["pdflatex"] 1728133350.95519 "Machine Learning.tex" "Machine Learning.pdf" "Machine Learning" 1728133354.71823 0
+["pdflatex"] 1728385265.89973 "Machine Learning.tex" "Machine Learning.pdf" "Machine Learning" 1728385270.4888 0
   "../../packages/Nyx/logo.png" 1710239380.27782 91419 8de48debf770a599a084520c83ce5d80 ""
-  "../../packages/Nyx/nyx-frames.sty" 1727791250.67041 4375 747ecc81b9cc3ddd6a4162d2d8d9e05e ""
+  "../../packages/Nyx/nyx-frames.sty" 1728154319.12301 4375 747ecc81b9cc3ddd6a4162d2d8d9e05e ""
   "../../packages/Nyx/nyx-intro.sty" 1710239380.27782 3476 d82343305e561945eb7e4f3f9e3a4fe2 ""
-  "../../packages/Nyx/nyx-macros.sty" 1728068738.43399 11157 ac50a402a4b990a4886c477ef250fe9a ""
+  "../../packages/Nyx/nyx-macros.sty" 1728154313.81301 11289 a82ab74e216b8caca946e02724dce97b ""
   "../../packages/Nyx/nyx-packages.sty" 1728046801.51303 2153 ae5a5b88400abf8ab971e9aa5a6163ed ""
   "../../packages/Nyx/nyx-styles.sty" 1727791284.42041 2711 ab41eef68f7a8b6ee5e3649068efc0de ""
   "../../packages/Nyx/nyx-title.sty" 1710239380.27782 3255 b8b7faa898231df2f4371d144bf17fa9 ""
@@ -72,6 +72,7 @@
   "/usr/share/texmf-dist/fonts/tfm/public/tex-gyre/ec-qtmr.tfm" 1716849630 11504 0b76b46eb90907e684139293e03c466a ""
   "/usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb" 1716849630 30251 6afa5cb1d0204815a708a080681d4674 ""
   "/usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb" 1716849630 36741 fa121aac0049305630cf160b86157ee4 ""
+  "/usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb" 1716849630 37166 8ab3487cbe3ab49ebce74c29ea2418db ""
   "/usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb" 1716849630 35469 70d41d2b9ea31d5d813066df7c99281c ""
   "/usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb" 1716849630 32722 d7379af29a190c3f453aba36302ff5a9 ""
   "/usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb" 1716849630 32726 0a1aea6fcd6468ee2cf64d891f5c43c8 ""
@@ -389,12 +390,12 @@
   "/usr/share/texmf-dist/web2c/texmf.cnf" 1716849630 41588 b43d3e860a4f94167ee1e725ff526a72 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1726984601.35337 5312047 b07fcd2a9090df96fc745b92a3db793b ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1726984520 7164987 6aba5708b37a543dc3887f9eaeb29d97 ""
-  "Machine Learning.aux" 1728133354.33436 2471 2d3424b597caca95bc4ae837a45cb468 "pdflatex"
-  "Machine Learning.bbl" 1728133333.29769 513 6453c26b054cf82854b5a9bba6be666a "bibtex Machine Learning"
-  "Machine Learning.out" 1728133354.36103 1603 843c30bfae2d6dd9e4c39799b074d362 "pdflatex"
-  "Machine Learning.run.xml" 1728133354.36769 2610 3328be1f01e0c6e00070293b06dbe6dc "pdflatex"
-  "Machine Learning.tex" 1728133349.33769 22955 0c710e37fdb759330a52099d9a2c386e ""
-  "Machine Learning.toc" 1728133354.36769 1066 d12ce90d27f0422a6abc52b1ca0bf3b7 "pdflatex"
+  "Machine Learning.aux" 1728385270.06032 2962 85793a9c76fcb83e8b593fdb6c18c44c "pdflatex"
+  "Machine Learning.bbl" 1728384810.37363 513 6453c26b054cf82854b5a9bba6be666a "bibtex Machine Learning"
+  "Machine Learning.out" 1728385270.09365 1798 07b63278ab38c2039878158960f0030c "pdflatex"
+  "Machine Learning.run.xml" 1728385270.10032 2610 3328be1f01e0c6e00070293b06dbe6dc "pdflatex"
+  "Machine Learning.tex" 1728385265.67032 34208 306199dd7408ec51b87ccdc683fe0a07 ""
+  "Machine Learning.toc" 1728385270.10032 1163 b840e258bfce054d8274dd6891a4f272 "pdflatex"
   (generated)
   "Machine Learning.aux"
   "Machine Learning.log"

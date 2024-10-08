@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024/Arch Linux) (preloaded format=pdflatex 2024.9.22)  5 OCT 2024 15:02
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024/Arch Linux) (preloaded format=pdflatex 2024.9.22)  8 OCT 2024 13:01
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1576,7 +1576,7 @@ Package hyperref Info: Link coloring ON on input line 72.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-<../../packages/Nyx/logo.png, id=51, 803.0pt x 301.125pt>
+<../../packages/Nyx/logo.png, id=55, 803.0pt x 301.125pt>
 File: ../../packages/Nyx/logo.png Graphic file (type png)
 <use ../../packages/Nyx/logo.png>
 Package pdftex.def Info: ../../packages/Nyx/logo.png  used on input line 73.
@@ -1756,18 +1756,28 @@ pdfTeX warning (ext4): destination with the same identifier (name{ALG@line.1}) h
 <to be read again> 
                    \relax 
 l.315             \Function
-                           {unbiasedEstimator}{$D$, $S$}
+                           {unbiasedEstimator}{$D$}
 pdfTeX warning (ext4): destination with the same identifier (name{ALG@line.2}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
 l.316                 \State
-                             TODO
+                             Partition $D$ into $T$ and $S$, such that $\abs...
 pdfTeX warning (ext4): destination with the same identifier (name{ALG@line.3}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.317             \EndFunction
+l.317                 \State
+                             Compute a hypothesis $h$ based on $T$
+pdfTeX warning (ext4): destination with the same identifier (name{ALG@line.4}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.318                 \State
+                             \textbf{return} $\mathrm{error}_S(h)$
+pdfTeX warning (ext4): destination with the same identifier (name{ALG@line.5}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.319             \EndFunction
                               
-Package cleveref Info: loaded `english' language definitions on input line 321.
+Package cleveref Info: loaded `english' language definitions on input line 324.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1776,8 +1786,163 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-Package cleveref Info: loaded `english' language definitions on input line 321.
-[10] (./Machine Learning.aux
+Package cleveref Info: loaded `english' language definitions on input line 324.
+[10]
+Underfull \hbox (badness 10000) in paragraph at lines 349--350
+
+ []
+
+
+pdfTeX warning (ext4): destination with the same identifier (name{ALG@line.1}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.354             \Function
+                           {kFoldCrossValidationHyps}{$D$, $L$, $k$, $\alpha$}
+pdfTeX warning (ext4): destination with the same identifier (name{ALG@line.2}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.355                 \State
+                             Partition $D$ into $k$ disjoint sets $S_1, \ldo...
+pdfTeX warning (ext4): destination with the same identifier (name{ALG@line.3}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.356                 \For
+                          {$i \in [1, k]$}
+pdfTeX warning (ext4): destination with the same identifier (name{ALG@line.4}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.357                     \State
+                                 $T_i := D - S_i$ \Comment{note that $T_i \c...
+pdfTeX warning (ext4): destination with the same identifier (name{ALG@line.5}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.358                     \State
+                                 $h_i := L(T_i)$
+pdfTeX warning (ext4): destination with the same identifier (name{ALG@line.6}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.359                     \State
+                                 $\delta_i := \mathrm{error}_{S_i}(h_i)$
+pdfTeX warning (ext4): destination with the same identifier (name{ALG@line.7}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.360                 \EndFor
+                             
+pdfTeX warning (ext4): destination with the same identifier (name{ALG@line.8}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.361                 \State
+                             $\mathrm{error}_{L, D}(h) := \frac{1}{k} \sum_{...
+Package cleveref Info: loaded `english' language definitions on input line 365.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+Package cleveref Info: loaded `english' language definitions on input line 365.
+[11]
+Underfull \hbox (badness 10000) in paragraph at lines 372--373
+
+ []
+
+
+pdfTeX warning (ext4): destination with the same identifier (name{ALG@line.1}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.377             \Function
+                           {kFoldCrossValidationAlgs}{$D$, $L_A$, $L_B$, $k$...
+pdfTeX warning (ext4): destination with the same identifier (name{ALG@line.2}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.378                 \State
+                             Partition $D$ into $k$ disjoint sets $S_1, \ldo...
+pdfTeX warning (ext4): destination with the same identifier (name{ALG@line.3}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.379                 \For
+                          {$i \in [1, k]$}
+pdfTeX warning (ext4): destination with the same identifier (name{ALG@line.4}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.380                     \State
+                                 $T_i := D - S_i$ \Comment{note that $T_i \c...
+pdfTeX warning (ext4): destination with the same identifier (name{ALG@line.5}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.381                     \State
+                                 $h_A := L_A(T_i)$
+pdfTeX warning (ext4): destination with the same identifier (name{ALG@line.6}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.382                     \State
+                                 $h_B := L_B(T_i)$
+pdfTeX warning (ext4): destination with the same identifier (name{ALG@line.7}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.383                     \State
+                                 $\delta_i := \mathrm{error}_{S_i}(h_A) - \m...
+pdfTeX warning (ext4): destination with the same identifier (name{ALG@line.8}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.384                 \EndFor
+                             
+Package cleveref Info: loaded `english' language definitions on input line 390.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+Package cleveref Info: loaded `english' language definitions on input line 390.
+[12]
+Package cleveref Info: loaded `english' language definitions on input line 417.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+Package cleveref Info: loaded `english' language definitions on input line 417.
+[13
+pdfTeX warning (ext4): destination with the same identifier (name{ALG@line.9}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.417         \item t
+                     he dataset $D$ contains 90\% of \tit{negative samples}
+pdfTeX warning (ext4): destination with the same identifier (name{ALG@line.10}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.417         \item t
+                     he dataset $D$ contains 90\% of \tit{negative samples}]
+Package cleveref Info: loaded `english' language definitions on input line 439.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+Package cleveref Info: loaded `english' language definitions on input line 439.
+[14]
+Package cleveref Info: loaded `english' language definitions on input line 449.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+Package cleveref Info: loaded `english' language definitions on input line 449.
+[15] (./Machine Learning.aux
 Package cleveref Info: loaded `english' language definitions on input line 12.
 )
  ***********
@@ -1789,25 +1954,25 @@ L3 programming layer <2024-02-20>
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 Package rerunfilecheck Info: File `"Machine Learning".out' has not changed.
-(rerunfilecheck)             Checksum: 843C30BFAE2D6DD9E4C39799B074D362;1603.
+(rerunfilecheck)             Checksum: 07B63278AB38C2039878158960F0030C;1798.
 Package logreq Info: Writing requests to '"Machine Learning".run.xml'.
 \openout1 = `"Machine Learning.run.xml"'.
 
  )
 (\end occurred when \ifx on line 36 was incomplete) 
 Here is how much of TeX's memory you used:
- 73498 strings out of 476024
- 1799864 string characters out of 5792396
- 2996121 words of memory out of 5000000
- 94599 multiletter control sequences out of 15000+600000
+ 73535 strings out of 476024
+ 1800419 string characters out of 5792396
+ 2996395 words of memory out of 5000000
+ 94620 multiletter control sequences out of 15000+600000
  583493 words of font info for 93 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
  119i,12n,123p,1907b,2231s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/share/texmf-dist/fonts/type1/public/tex-gyre/qtmr.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfbx1728.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfbx2488.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfcc1200.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfcc1440.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfcc1728.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfcc2074.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfrm1440.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfti1200.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfti1440.pfb>
-Output written on "Machine Learning.pdf" (12 pages, 394991 bytes).
+</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/share/texmf-dist/fonts/type1/public/tex-gyre/qtmr.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfbx1728.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfbx2488.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfcc1200.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfcc1440.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfcc1728.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfcc2074.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfrm1440.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfti1200.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfti1440.pfb>
+Output written on "Machine Learning.pdf" (17 pages, 432505 bytes).
 PDF statistics:
- 301 PDF objects out of 1000 (max. 8388607)
- 234 compressed objects within 3 object streams
- 51 named destinations out of 1000 (max. 500000)
- 112 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 346 PDF objects out of 1000 (max. 8388607)
+ 272 compressed objects within 3 object streams
+ 67 named destinations out of 1000 (max. 500000)
+ 120 words of extra memory for PDF output out of 10000 (max. 10000000)
 

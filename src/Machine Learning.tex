@@ -167,10 +167,10 @@
     \subsection{Version spaces}
 
     \begin{frameddefn}{Hypothesis consistency}
-        Given an ML problem defined by a target function $\func{c}{X}{Y}$ --- for some sets $X$ and $Y$ --- and a training dataset $D = \{(x, c(x))\}$, an hypothesis $h \in H$ is said to be \tbf{consistent with $D$} if and only if $$\forall x \in D \quad h(x) = c(x)$$
+        Given an ML problem defined by a target function $\func{c}{X}{Y}$ --- for some sets $X$ and $Y$ --- and a training dataset $D = \{(x, c(x))\}$, a hypothesis $h \in H$ is said to be \tbf{consistent with $D$} if and only if $$\forall x \in D \quad h(x) = c(x)$$
     \end{frameddefn}
 
-    Note that this definition is important, because $h(x)$ can be evaluated for any $x \in X$, but only inputs that appear in the dataset can be verified, for which $c(x)$ is known. Therefore, \tit{consistency} should be desirable for an hypothesis, since the real goal of an ML system is to find \tit{the best} $h$ that predicts correct values of $h(x')$, for instances $x' \notin X_D$, with respect to the unknown values $c(x')$.
+    Note that this definition is important, because $h(x)$ can be evaluated for any $x \in X$, but only inputs that appear in the dataset can be verified, for which $c(x)$ is known. Therefore, \tit{consistency} should be desirable for a hypothesis, since the real goal of an ML system is to find \tit{the best} $h$ that predicts correct values of $h(x')$, for instances $x' \notin X_D$, with respect to the unknown values $c(x')$.
 
     \begin{frameddefn}{Version space}
         The \tbf{version space} $VS_{H, D}$ of an ML problem, is the subset of hypotheses of $H$ consistent with all training examples in $D$. Using symbols $$VS_{H, D}: = \{h \in H \mid \forall x \in X_D \quad h(x) = c(x)\} \subset H$$
@@ -199,7 +199,7 @@
 
     \subsection{Representation issues}
 
-    Consider a \tit{binary classification} ML problem --- commonly referred to as \tbf{Concept Learning} (CL) --- , and its hypotheses space $H$; usually, every hypothesis is associated to the set of the instances that are classified as 1 by such hypothesis $$\funcmap{\phi}{H}{\powerset(S)}{h}{\{x \in X \mid h(x) = 1\}}$$ note that it is not always true that, for any set $S \subseteq X$, there exists an $h$ such that for each $x \in S$, $h(x) = 1$. Assume that, for the considered CL problem, there exists an hypothesis space $H'$ such that $$\forall S \subseteq \powerset(X) \quad \exists h \in H' \mid S = \{x \in °X \mid h(x)  = 1\}$$ therefore $H'$ can represent \tit{any subset} of $X$. Now, consider the following:
+    Consider a \tit{binary classification} ML problem --- commonly referred to as \tbf{Concept Learning} (CL) --- , and its hypotheses space $H$; usually, every hypothesis is associated to the set of the instances that are classified as 1 by such hypothesis $$\funcmap{\phi}{H}{\powerset(S)}{h}{\{x \in X \mid h(x) = 1\}}$$ note that it is not always true that, for any set $S \subseteq X$, there exists an $h$ such that for each $x \in S$, $h(x) = 1$. Assume that, for the considered CL problem, there exists a hypothesis space $H'$ such that $$\forall S \subseteq \powerset(X) \quad \exists h \in H' \mid S = \{x \in °X \mid h(x)  = 1\}$$ therefore $H'$ can represent \tit{any subset} of $X$. Now, consider the following:
 
     \begin{itemize}
         \item $\forall x' \notin X_D \quad \exists h', h'' \in VS_{H', D} : \soe{l}{h'(x) = 1 \\ h''(x) = 0}$ because $H'$ can represent any subset $S \subseteq X$ --- therefore, for \tit{all} inputs outside $X_D$, a system using $H'$ would not be able to perform a prediction;
@@ -209,7 +209,7 @@
 
     Note that $H'$ is the most powerful hypothesis space, because it can represent \tit{any subset} of $X$, $H$ is less powerful than $X$ because it can represent \tit{some subsets} of $X$, and $h^*$ will only represent \tit{one} subset of $X$, meaning that it is the least powerful representation. However, the more information the hypothesis space encapsulates about the values in $X_D$, the harder it becomes to \tbf{generalize} and \tbf{predict} values for samples \tit{outside} $X_D$. In other words, a more expressive hypothesis space can \tbf{overfit} to the data, making it more difficult to make accurate predictions on unseen data.
     
-    The process of reducing the \tbf{representation power}, in favor of \tbf{generalization power} --- i.e., reducing the hypothesis space from $H'$ to $H$ --- is called \tbf{language bias}, because it is a \tit{restriction}, a \tit{bias}, on the language, used to represent the hypothesis. Moreover, the process of \tit{selecting} one particular hypothesis among the set of possible ones --- i.e., choosing $h^* \in H$ --- is called \tbf{search bias}. Note that, in some contexts, it is also possible to choose an hypothesis $h^*$ within $H'$ directly.
+    The process of reducing the \tbf{representation power}, in favor of \tbf{generalization power} --- i.e., reducing the hypothesis space from $H'$ to $H$ --- is called \tbf{language bias}, because it is a \tit{restriction}, a \tit{bias}, on the language, used to represent the hypothesis. Moreover, the process of \tit{selecting} one particular hypothesis among the set of possible ones --- i.e., choosing $h^* \in H$ --- is called \tbf{search bias}. Note that, in some contexts, it is also possible to choose a hypothesis $h^*$ within $H'$ directly.
 
     \begin{example}[Representation issues]
         Consider the CL problem of enclosing all integer points on a 2D plane \tit{labeled} with a +, thus
@@ -251,16 +251,16 @@
         \item $S$ is a sample of $n$ instances drawn from $X$, according to the distribution $\mathcal D$, for which $f(x)$ is known.
     \end{itemize}
 
-    Additionally, consider an hypothesis $h$, solution of a learning problem obtained from $S$. What is the \tit{best estimate} of the accuracy of $h$, over future instances drawn from $\mathcal D$? What is the \tit{probable error} in this accuracy estimate?
+    Additionally, consider a hypothesis $h$, solution of a learning problem obtained from $S$. What is the \tit{best estimate} of the accuracy of $h$, over future instances drawn from $\mathcal D$? What is the \tit{probable error} in this accuracy estimate?
 
     \begin{frameddefn}{True error}
-        Given an ML problem, the \tbf{true error} of an hypothesis $h$ --- with respect to the target function $f$ of the problem, and to the distribution $\mathcal D$ --- is the probability that $h$ will \tit{misclassify} an instance drawn at random according to $\mathcal D$: $$\mathrm{error}_\mathcal D (h) := \Pr_{x \in \mathcal D}{(f(x) \neq h(x))}$$
+        Given an ML problem, the \tbf{true error} of a hypothesis $h$ --- with respect to the target function $f$ of the problem, and to the distribution $\mathcal D$ --- is the probability that $h$ will \tit{misclassify} an instance drawn at random according to $\mathcal D$: $$\mathrm{error}_\mathcal D (h) := \Pr_{x \in \mathcal D}{(f(x) \neq h(x))}$$
     \end{frameddefn}
 
     Note that the \tbf{true error} of an ML problem \tit{does not} refer to samples in the dataset, but to \tit{any sample} in the input space, extracted accordin to $\mathcal D$. Moreover, note that this definition is \tit{not operational}, and this term \tbf{cannot be computed}, because $f(x)$ \tit{is not known}. In fact, this is a \tbf{target error}. Instead, consider the following type of error.
 
     \begin{frameddefn}{Sample error}
-        Given an ML problem, the \tbf{sample error} of an hypothesis $h$ --- with respect to the target function $f$ of the problem, and to the data sample $S$ --- is the proportion of examples that $h$ misclassifies: $$\mathrm{error}_S(h) := \dfrac{1}{n} \sum_{x \in S}{\delta(f(x), h(x))}$$ where $\delta$ is an indicator variable such that $$\delta(f(x), h(x)) := \soe{ll}{1 & f(x) \neq h(x) \\ 0 & f(x) = h(x)}$$
+        Given an ML problem, the \tbf{sample error} of a hypothesis $h$ --- with respect to the target function $f$ of the problem, and to the data sample $S$ --- is the proportion of examples that $h$ misclassifies: $$\mathrm{error}_S(h) := \dfrac{1}{n} \sum_{x \in S}{\delta(f(x), h(x))}$$ where $\delta$ is an indicator variable such that $$\delta(f(x), h(x)) := \soe{ll}{1 & f(x) \neq h(x) \\ 0 & f(x) = h(x)}$$
     \end{frameddefn}
 
     In other words, the \tbf{sample error} is defined by a \tit{counting function}, which counts how many examples $h$ has misclassified, normalized by $\abs S$.
@@ -268,7 +268,7 @@
     The \tbf{goal} of a learning system is to be \tbf{accurate} in $h(x)$, for each $x \notin S$, and \tbf{accuracy} is defined as follows.
 
     \begin{frameddefn}{Accuracy}
-        Given an ML problem, the \tbf{accuracy} of an hypothesis $h$ is defined as follows: $$\mathrm{accuracy}(h) := 1 - \mathrm{error}(h)$$
+        Given an ML problem, the \tbf{accuracy} of a hypothesis $h$ is defined as follows: $$\mathrm{accuracy}(h) := 1 - \mathrm{error}(h)$$
     \end{frameddefn}
 
     Note that, if $\mathrm{accuracy}_S(h)$ is very high, but $\mathrm{accuracy}_\mathcal D(h)$ is poor, the system considered is of little use.
@@ -301,7 +301,7 @@
             \end{tabular}
         \end{table}
 
-        Note that \tbf{increasing $n$ reduces the variance}, therefore it will me more probable that the \tit{true error} will fall within an interval.
+        Note that \tit{increasing} $n$ \tbf{reduces the variance}, therefore it will me more probable that the \tit{true error} will fall within an interval.
     \end{example}
 
     In machine learning, the following algorithm is usually employed, which \tbf{guarantees} an \tbf{unbiased estimator} of the \tit{true error}.
@@ -312,10 +312,138 @@
         \quad
         \label{alg:unbiased_estimator}
         \begin{algorithmic}[1]
-            \Function{unbiasedEstimator}{$D$, $S$}
-                \State TODO
+            \Function{unbiasedEstimator}{$D$}
+                \State Partition $D$ into $T$ and $S$, such that $\abs T = \frac{2}{3}\abs D$
+                \State Compute a hypothesis $h$ based on $T$
+                \State \textbf{return} $\mathrm{error}_S(h)$
             \EndFunction
         \end{algorithmic}
     \end{framedalgo}
+
+    The split performed in the first line of the algorithm \tit{partitions} the input dataset $D$ into two sets $T$ and $S$ --- therefore, $T \cup S = D$ and $T \cap S = \varnothing$. The set $T$ is typically referred to as \textbf{training set}, and since $h$ is computed based on $T$, the algorithm \tit{guarantees} that $h$ is \tbf{independent} of $S$, the set used to assess the \tit{sample error}. Note that $\mathrm{error}_S(h) := \frac{1}{n} \sum_{x \in S}{\delta(f(x), h(x))}$ can be computed because $S$ comes from $D$, therefore $f(x)$ is known for each $x \in S$. Note that it is \tit{crucial} that $D$ is partitioned into $T$ and $S$ \tbf{randomly}, as any split based on specific criteria would introduce \tit{bias} into the partition.
+
+    Moreover, note that the $\frac{2}{3}$ split is a \tit{good trade-off} between $\abs T$ and $\abs S$, because:
+
+    \begin{itemize}
+        \item having more samples from \tit{training} and less for \tit{testing} improves the performance of the model, but $\mathrm{error}_S(h)$ does not approximate well $\mathrm{error}_\mathcal D (h)$;
+        \item having more sample from \tit{testing} and less for \tit{training} reduces the variance of estimation, and $\mathrm{error}_S(h)$ approximates $\mathrm{error}_\mathcal D (h)$ well, but its value mey be unsatisfactory.
+    \end{itemize}
+
+    Additionally, in general computing $\mathrm{error}_S(h)$ is \tit{insufficient}, as it represents just one realization of the random variable. To estimate $E[\mathrm{error}_S(h)]$, it can be approximated by \tit{averaging} the computed values of $\mathrm{error}{S_i}(h)$ over several subsets $S_i$.
+
+    To compare two hypothesis, the following definition can be utilized.
+
+    \begin{frameddefn}{True comparison}
+        Given two hypotheses $h$ and $h'$ of some ML problem, the \tbf{true comparison} is defined as $$d := \mathrm{error}_\mathcal D(h) - \mathrm{error}_\mathcal D(h')$$ and its \tit{estimator} is defined as $$\hat d := \mathrm{error}_{S}(h) - \mathrm{error}_{S'}(h')$$
+    \end{frameddefn}
+
+    Note that, in this definition, $\hat d$ is an \tbf{unbiased estimator} for $d$ it and only if $h, h', S$ and $S'$ are independent of each other, but it is \tit{still valid} if $S = S'$. Lastly, note that $d = E[\hat d]$.
+    
+    \begin{frameddefn}{Overfitting}
+        Consider an hypothesis $h \in H$ of an ML problem computed over some training data; $h$ \tbf{overfits} the training data if there exists an alternative hypothesis $h' \in H$ such that $$\mathrm{error}_S(h) < \mathrm{error}_S(h')$$ but $$\mathrm{error}_\mathcal D(h) > \mathrm{error}_\mathcal D(h')$$
+    \end{frameddefn}
+
+    When training a learning algorithm $L$, different splits of $D$ may occur, resulting in different training sets, e.g. $T$ and $T'$, and consequently, different hypotheses, e.g. $h= L(T)$ and $h'= L(T')$. To estimate the performance of $L$ the following algorithm can be employed.
+
+    \begin{framedalgo}{$k$-fold Cross Validation (hypotheses)}
+        Given an ML problem, the algorithm returns an \tit{unbiased estimator} for the true error. \\
+        \hrule
+        \quad
+        \label{alg:k-fold1}
+        \begin{algorithmic}[1]
+            \Function{kFoldCrossValidationHyps}{$D$, $L$, $k$, $\alpha$}
+                \State Partition $D$ into $k$ disjoint sets $S_1, \ldots , S_k$, such that $\forall i \in [i, k] \quad \abs{S_i} > \alpha$
+                \For{$i \in [1, k]$}
+                    \State $T_i := D - S_i$ \Comment{note that $T_i \cap S_i = \varnothing$}
+                    \State $h_i := L(T_i)$
+                    \State $\delta_i := \mathrm{error}_{S_i}(h_i)$
+                \EndFor
+                \State $\mathrm{error}_{L, D}(h) := \frac{1}{k} \sum_{i = 1}^k{\delta_i}$
+                \State \textbf{return} $\mathrm{error}_{L, D}(h)$
+            \EndFunction
+        \end{algorithmic}
+    \end{framedalgo}
+
+    This algorithm simply partitions the dataset $D$ into multiple subsets, evaluates the performance of $L$ on each split $S_i$ and $T_i = D - S_i$, and returns the average sample error across all splits. Moreover, $\alpha = 30$ usually, and it is necessary to fix a minimum size for the partitions otherwise each single partition would not contribute enough to the average. Lastly, note that $$\mathrm{accuracy}_{L, D}(h) := 1 - \mathrm{error}_{L, D}(h)$$
+
+    How can two learning algorithms $L_A$ and $L_B$ be compared instead? It would be useful to estimate $$\mathrm{error}_\mathcal D (L_A(T)) - \mathrm{error}_\mathcal D(L_B(T))$$ where $L(T)$ is the hypothesis output of $L$ (computed using $T$), by employing $$E[\mathrm{error}_S(L_A(T)) - \mathrm{error}_S(L_B(T))]$$ This can be performed through $k$-fold cross validation as well, as shown below.
+
+    \begin{framedalgo}{$k$-fold Cross Validation (learning algorithms)}
+        Given two ML problems, the algorithm estimates which one is better. \\
+        \hrule
+        \quad
+        \label{alg:k-fold2}
+        \begin{algorithmic}[1]
+            \Function{kFoldCrossValidationAlgs}{$D$, $L_A$, $L_B$, $k$, $\alpha$}
+                \State Partition $D$ into $k$ disjoint sets $S_1, \ldots , S_k$, such that $\forall i \in [i, k] \quad \abs{S_i} > \alpha$
+                \For{$i \in [1, k]$}
+                    \State $T_i := D - S_i$ \Comment{note that $T_i \cap S_i = \varnothing$}
+                    \State $h_A := L_A(T_i)$
+                    \State $h_B := L_B(T_i)$
+                    \State $\delta_i := \mathrm{error}_{S_i}(h_A) - \mathrm{error}_{S_i}(h_B)$
+                \EndFor
+                \State $\bar \delta := \frac{1}{k} \sum_{i = 1}^k{\delta_i}$
+                \State \textbf{return} $\bar \delta$
+            \EndFunction
+        \end{algorithmic}
+    \end{framedalgo}
+
+    Note that if $\bar \delta < 0$, then $L_A$ is estimated to be \tit{better than} $L_B$.
+
+    \subsection{Classification performance}
+
+    In \tit{classification tasks}, the terms \tbf{true positive}, \tbf{false negative}, and \tbf{false positive} and \tbf{true negative} refer to the various outcomes of a binary classification model. The effectiveness of a model is assessed based on how \tit{accurately} it classifies instances into these categories, which ultimately reflects its overall performance. The following table illustrates the various terms in detail.
+
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{c|cc}
+                           & \tit{predicted} yes & \tit{predicted} no \\
+            \hline
+            \tit{true} yes & true positive (TP) & false negative (FN) \\
+            \tit{true} no  & false positive (FP) & true negative (TN) \\
+        \end{tabular}
+    \end{table}
+    
+    Therefore, the following definitions hold.
+
+    \begin{frameddefn}{Error rate and accuracy}
+        The \tbf{error rate} of classification problems is defined as follows: $$\mathrm{error \ rate} := \dfrac{\abs{\mathrm{errors}}}{\abs{\mathrm{instances}}} = \dfrac{\mathrm{FN} + \mathrm{FP}}{\mathrm{TP} + \mathrm{TN} + \mathrm{FP} + \mathrm{FN}}$$ Additionally, \tbf{accuracy} is defined as $$\mathrm{accuracy} := 1 - \mathrm{error \ rate} = \dfrac{\mathrm{TP} + \mathrm{TN}}{\mathrm{TP} + \mathrm{TN} + \mathrm{FP} + \mathrm{FN}}$$
+    \end{frameddefn}
+
+    Accuracy can be used as a performance metric for classification problems, but is it always \tit{suitable}? For instance, consider the following CL problem, where
+
+    \begin{itemize}
+        \item the target function has the form $\func{f}{X}{\{+, -\}}$
+        \item the dataset $D$ contains 90\% of \tit{negative samples}
+    \end{itemize}
+    
+    and consider two hypotheses $h_1$ and $h_2$ such that $h_1$ has 90\% of \tit{accuracy} and $h_2$ has 85\% of \tit{accuracy} --- assuming that both hypotheses were computed as accurately as possible, without bias. This may suggest that $h_1$ is better than $h_2$, but consider the following hypothesis: $$h_1 \in H \mid \forall x \in X \quad h(x) = -$$ clearly, this hypothesis has 90\% accuracy because, when tested on $D$, which consists of 90\% \tit{negative samples}, it will be correct exactly 90\% of the time. However, this hypothesis is not a \tit{suitable solution} for a CL problem, as it fails to model any realistic scenarios.
+
+    The problem arises from having \tbf{too many} \tit{negative samples} in the dataset. This poses a \tit{significant challenge} in ML because an \tit{overabundance} of samples of the same type makes it difficult to develop models that can classify accurately.
+
+    This example clearly shows that, in general, \tbf{accuracy} alone is \tit{not enough} to assess the performance of the solution of a classification problem, as \tbf{unbalanced datases} are \tit{very common} in real-world scenarios (e.g. anomaly detection).
+
+    Now, consider the following metrics.
+
+    \begin{frameddefn}{Recall and precision}
+        \tbf{Recall} and \tbf{precision} are defined as follows: $$\mathrm{recall} := \dfrac{\abs{\mathrm{true \ positives}}}{\abs{\mathrm{real \ positives}}} = \dfrac{\mathrm{TP}}{\mathrm{TP} + \mathrm{FN}}$$ $$\mathrm{precision} := \dfrac{\abs{\mathrm{true \ positives}}}{\abs{\mathrm{predicted \ prositives}}} = \dfrac{\mathrm{TP}}{\mathrm{TP} + \mathrm{FP}}$$
+    \end{frameddefn}
+
+    These metrics are generally \tbf{better suited} for classification problems and are widely adopted across various branches of \tit{statistics}. In particular, \tbf{recall} measures how good is the system at \tit{avoiding false negatives} --- indeed, recall $= 0$ when FN $= 0$ --- while the \tbf{precision} measures the system's ability to \tit{avoid false positives} --- in fact, precision $= 0$ when FP $= 0$.
+
+    The significance of \tit{false positives} and \tit{false negatives} varies depending on the system in question. For example, consider an autonomous car that must learn to identify whether a pedestrian is present in front of it. In this scenario, \tit{false positives} --- instances where the car mistakenly detects a pedestrian --- are far less critical than \tit{false negatives}, where the car fails to recognize an actual pedestrian. This means that, in assessing the performance of such a classification system, \tbf{recall} is much more relevant.
+
+    \begin{frameddefn}{$F1$-score}
+        The \tbf{$F1$-score} is defined as follows: $$F1\mathrm{-score} := 2 \cdot \dfrac{\mathrm{precision} \cdot \mathrm{recall}}{\mathrm{precision} + \mathrm{recall}}$$
+    \end{frameddefn}
+
+    This score measures the trade-off between \tit{precision} and \tit{recall}. Note that there are are types of \tit{performance measures}, depending on the context, such as
+    
+    \begin{itemize}
+        \item \tbf{true positive rate}: $$\mathrm{TPR} := \dfrac{\mathrm{TP}}{\mathrm{TP} + \mathrm{FN}}$$
+        \item \tbf{true negative rate}: $$\mathrm{TNR} := \dfrac{\mathrm{TN}}{\mathrm{TN} + \mathrm{FP}}$$
+        \item \tbf{false positive rate}: $$\mathrm{FPR} := \dfrac{\mathrm{FP}}{\mathrm{TN} + \mathrm{FP}}$$
+        \item \tbf{false negative rate}: $$\mathrm{FNR} := \dfrac{\mathrm{FN}}{\mathrm{TP} + \mathrm{FN}}$$
+    \end{itemize}
 
 \end{document}
