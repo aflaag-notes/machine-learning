@@ -645,6 +645,11 @@ INPUT /usr/share/texmf-dist/fonts/tfm/jknappen/ec/ecbx1728.tfm
 INPUT /usr/share/texmf-dist/fonts/tfm/jknappen/ec/ecbx1440.tfm
 INPUT /usr/share/texmf-dist/fonts/enc/dvips/tex-gyre/q-ec.enc
 INPUT /usr/share/texmf-dist/fonts/tfm/jknappen/ec/ecrm1000.tfm
+INPUT ../assets/confusion.png
+INPUT ../assets/confusion.png
+INPUT ../assets/confusion.png
+INPUT ../assets/confusion.png
+INPUT ../assets/confusion.png
 INPUT Machine Learning.aux
 INPUT ./Machine Learning.out
 INPUT ./Machine Learning.out

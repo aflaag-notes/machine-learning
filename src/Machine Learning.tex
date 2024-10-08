@@ -146,7 +146,16 @@
 
     Note that $\abs{X_D} << \abs{X}$, which makes the task of learning $f$ quite challenging.
 
-    There are multiple types of Machine Learning (ML) problems, such as \tit{dataset type} and \tit{target function type}. The various ML problems will be discussed in later sections.
+    There are multiple types of Machine Learning (ML) problems, such as \tit{dataset type} and \tit{target function type}, some of which include:
+
+    \begin{itemize}
+        \item \tbf{classification}, which involves the \tit{classification} of inputs into predetermined categories;
+        \item \tbf{regression}, which involves the \tit{approximation} of functions defined over $\R$;
+        \item \tbf{unsupervised learing}, a type of ML problem where the model learns patterns from \tit{unlabeled data};
+        \item \tbf{reinforcement learning}, in which an agent learns to make decisions by interacting with an \tit{environment} and receiving \tit{rewards} or \tit{penalties} based on its actions.
+    \end{itemize}
+
+    Some of the various ML problems will be discussed in later sections.
 
     \subsection{Hypothesis spaces}
     
@@ -178,11 +187,10 @@
 
     Compute version spaces is not a straightforward task. For instance, consider the following algorithm.
 
-    \begin{framedalgo}{List-Then-Eliminate}
+    \begin{framedalgo}[label={lte}]{List-Then-Eliminate}
         Given an ML problem, the algorithm returns $VS_{H, D}$. \\
         \hrule
         \quad
-        \label{alg:lte}
         \begin{algorithmic}[1]
             \Function{listThenEliminate}{$X_D$, $D$}
                 \State $VS_{H, D} := H$ \Comment{initially it contains any hypothesis}
@@ -241,7 +249,7 @@
 
     \section{Performance evaluation}
 
-    \subsection{Errors and accuracy}
+    \subsection{Classification problems}
 
     Consider the following typical ML classification problem:
 
@@ -254,13 +262,13 @@
     Additionally, consider a hypothesis $h$, solution of a learning problem obtained from $S$. What is the \tit{best estimate} of the accuracy of $h$, over future instances drawn from $\mathcal D$? What is the \tit{probable error} in this accuracy estimate?
 
     \begin{frameddefn}{True error}
-        Given an ML problem, the \tbf{true error} of a hypothesis $h$ --- with respect to the target function $f$ of the problem, and to the distribution $\mathcal D$ --- is the probability that $h$ will \tit{misclassify} an instance drawn at random according to $\mathcal D$: $$\mathrm{error}_\mathcal D (h) := \Pr_{x \in \mathcal D}{(f(x) \neq h(x))}$$
+        Given a classification problem, the \tbf{true error} of a hypothesis $h$ --- with respect to the target function $f$ of the problem, and to the distribution $\mathcal D$ --- is the probability that $h$ will \tit{misclassify} an instance drawn at random according to $\mathcal D$: $$\mathrm{error}_\mathcal D (h) := \Pr_{x \in \mathcal D}{(f(x) \neq h(x))}$$
     \end{frameddefn}
 
-    Note that the \tbf{true error} of an ML problem \tit{does not} refer to samples in the dataset, but to \tit{any sample} in the input space, extracted accordin to $\mathcal D$. Moreover, note that this definition is \tit{not operational}, and this term \tbf{cannot be computed}, because $f(x)$ \tit{is not known}. In fact, this is a \tbf{target error}. Instead, consider the following type of error.
+    Note that the \tbf{true error} of a classifcation problem \tit{does not} refer to samples in the dataset, but to \tit{any sample} in the input space, extracted accordin to $\mathcal D$. Moreover, note that this definition is \tit{not operational}, and this term \tbf{cannot be computed}, because $f(x)$ \tit{is not known}. In fact, this is a \tbf{target error}. Instead, consider the following type of error.
 
     \begin{frameddefn}{Sample error}
-        Given an ML problem, the \tbf{sample error} of a hypothesis $h$ --- with respect to the target function $f$ of the problem, and to the data sample $S$ --- is the proportion of examples that $h$ misclassifies: $$\mathrm{error}_S(h) := \dfrac{1}{n} \sum_{x \in S}{\delta(f(x), h(x))}$$ where $\delta$ is an indicator variable such that $$\delta(f(x), h(x)) := \soe{ll}{1 & f(x) \neq h(x) \\ 0 & f(x) = h(x)}$$
+        Given a classification problem, the \tbf{sample error} of a hypothesis $h$ --- with respect to the target function $f$ of the problem, and to the data sample $S$ --- is the proportion of examples that $h$ misclassifies: $$\mathrm{error}_S(h) := \dfrac{1}{n} \sum_{x \in S}{\delta(f(x), h(x))}$$ where $\delta$ is an indicator variable such that $$\delta(f(x), h(x)) := \soe{ll}{1 & f(x) \neq h(x) \\ 0 & f(x) = h(x)}$$
     \end{frameddefn}
 
     In other words, the \tbf{sample error} is defined by a \tit{counting function}, which counts how many examples $h$ has misclassified, normalized by $\abs S$.
@@ -268,7 +276,7 @@
     The \tbf{goal} of a learning system is to be \tbf{accurate} in $h(x)$, for each $x \notin S$, and \tbf{accuracy} is defined as follows.
 
     \begin{frameddefn}{Accuracy}
-        Given an ML problem, the \tbf{accuracy} of a hypothesis $h$ is defined as follows: $$\mathrm{accuracy}(h) := 1 - \mathrm{error}(h)$$
+        Given a classification problem, the \tbf{accuracy} of a hypothesis $h$ is defined as follows: $$\mathrm{accuracy}(h) := 1 - \mathrm{error}(h)$$
     \end{frameddefn}
 
     Note that, if $\mathrm{accuracy}_S(h)$ is very high, but $\mathrm{accuracy}_\mathcal D(h)$ is poor, the system considered is of little use.
@@ -295,7 +303,7 @@
         \begin{table}[H]
             \centering
             \begin{tabular}{c|ccccccc}
-                $N\%$ & 50\% & 68\% & 80\& & 90\% & 95\% & 98\% & 99\% \\
+                $N\%$ & 50\% & 68\% & 80\% & 90\% & 95\% & 98\% & 99\% \\
                 \hline
                 $z_N$ & 0.67 & 1.00 & 1.28 & 1.64 & 1.96 & 2.33 & 2.58
             \end{tabular}
@@ -306,11 +314,11 @@
 
     In machine learning, the following algorithm is usually employed, which \tbf{guarantees} an \tbf{unbiased estimator} of the \tit{true error}.
 
-    \begin{framedalgo}{Unbiased estimator}
-        Given an ML problem, the algorithm returns an unbiased estimator for the \tit{true error}. \\
+    \begin{framedalgo}[label={unbiased_estimator}]{Unbiased estimator}
+        Given a classification problem, the algorithm returns an unbiased estimator for the \tit{true error}. \\
         \hrule
         \quad
-        \label{alg:unbiased_estimator}
+        \label{unbiased_estimator}
         \begin{algorithmic}[1]
             \Function{unbiasedEstimator}{$D$}
                 \State Partition $D$ into $T$ and $S$, such that $\abs T = \frac{2}{3}\abs D$
@@ -334,22 +342,21 @@
     To compare two hypothesis, the following definition can be utilized.
 
     \begin{frameddefn}{True comparison}
-        Given two hypotheses $h$ and $h'$ of some ML problem, the \tbf{true comparison} is defined as $$d := \mathrm{error}_\mathcal D(h) - \mathrm{error}_\mathcal D(h')$$ and its \tit{estimator} is defined as $$\hat d := \mathrm{error}_{S}(h) - \mathrm{error}_{S'}(h')$$
+        Given two hypotheses $h$ and $h'$ of some classification problem, the \tbf{true comparison} is defined as $$d := \mathrm{error}_\mathcal D(h) - \mathrm{error}_\mathcal D(h')$$ and its \tit{estimator} is defined as $$\hat d := \mathrm{error}_{S}(h) - \mathrm{error}_{S'}(h')$$
     \end{frameddefn}
 
     Note that, in this definition, $\hat d$ is an \tbf{unbiased estimator} for $d$ it and only if $h, h', S$ and $S'$ are independent of each other, but it is \tit{still valid} if $S = S'$. Lastly, note that $d = E[\hat d]$.
     
     \begin{frameddefn}{Overfitting}
-        Consider an hypothesis $h \in H$ of an ML problem computed over some training data; $h$ \tbf{overfits} the training data if there exists an alternative hypothesis $h' \in H$ such that $$\mathrm{error}_S(h) < \mathrm{error}_S(h')$$ but $$\mathrm{error}_\mathcal D(h) > \mathrm{error}_\mathcal D(h')$$
+        Consider an hypothesis $h \in H$ of a classification problem computed over some training data; $h$ \tbf{overfits} the training data if there exists an alternative hypothesis $h' \in H$ such that $$\mathrm{error}_S(h) < \mathrm{error}_S(h')$$ but $$\mathrm{error}_\mathcal D(h) > \mathrm{error}_\mathcal D(h')$$
     \end{frameddefn}
 
     When training a learning algorithm $L$, different splits of $D$ may occur, resulting in different training sets, e.g. $T$ and $T'$, and consequently, different hypotheses, e.g. $h= L(T)$ and $h'= L(T')$. To estimate the performance of $L$ the following algorithm can be employed.
 
-    \begin{framedalgo}{$k$-fold Cross Validation (hypotheses)}
-        Given an ML problem, the algorithm returns an \tit{unbiased estimator} for the true error. \\
+    \begin{framedalgo}[label={k-fold1}]{$k$-fold Cross Validation (hypotheses)}
+        Given a classification problem, the algorithm returns an \tit{unbiased estimator} of the \tit{expected value} of the the \tit{sample error}. \\
         \hrule
         \quad
-        \label{alg:k-fold1}
         \begin{algorithmic}[1]
             \Function{kFoldCrossValidationHyps}{$D$, $L$, $k$, $\alpha$}
                 \State Partition $D$ into $k$ disjoint sets $S_1, \ldots , S_k$, such that $\forall i \in [i, k] \quad \abs{S_i} > \alpha$
@@ -358,8 +365,8 @@
                     \State $h_i := L(T_i)$
                     \State $\delta_i := \mathrm{error}_{S_i}(h_i)$
                 \EndFor
-                \State $\mathrm{error}_{L, D}(h) := \frac{1}{k} \sum_{i = 1}^k{\delta_i}$
-                \State \textbf{return} $\mathrm{error}_{L, D}(h)$
+                \State $\mathrm{error}_{L, D} := \frac{1}{k} \sum_{i = 1}^k{\delta_i}$
+                \State \textbf{return} $\mathrm{error}_{L, D}$
             \EndFunction
         \end{algorithmic}
     \end{framedalgo}
@@ -368,11 +375,10 @@
 
     How can two learning algorithms $L_A$ and $L_B$ be compared instead? It would be useful to estimate $$\mathrm{error}_\mathcal D (L_A(T)) - \mathrm{error}_\mathcal D(L_B(T))$$ where $L(T)$ is the hypothesis output of $L$ (computed using $T$), by employing $$E[\mathrm{error}_S(L_A(T)) - \mathrm{error}_S(L_B(T))]$$ This can be performed through $k$-fold cross validation as well, as shown below.
 
-    \begin{framedalgo}{$k$-fold Cross Validation (learning algorithms)}
-        Given two ML problems, the algorithm estimates which one is better. \\
+    \begin{framedalgo}[label={k-fold2}]{$k$-fold Cross Validation (learning algorithms)}
+        Given two classification algorithms, the algorithm estimates which one is better. \\
         \hrule
         \quad
-        \label{alg:k-fold2}
         \begin{algorithmic}[1]
             \Function{kFoldCrossValidationAlgs}{$D$, $L_A$, $L_B$, $k$, $\alpha$}
                 \State Partition $D$ into $k$ disjoint sets $S_1, \ldots , S_k$, such that $\forall i \in [i, k] \quad \abs{S_i} > \alpha$
@@ -390,13 +396,13 @@
 
     Note that if $\bar \delta < 0$, then $L_A$ is estimated to be \tit{better than} $L_B$.
 
-    \subsection{Classification performance}
+    \subsection{Classification accuracy}
 
     In \tit{classification tasks}, the terms \tbf{true positive}, \tbf{false negative}, and \tbf{false positive} and \tbf{true negative} refer to the various outcomes of a binary classification model. The effectiveness of a model is assessed based on how \tit{accurately} it classifies instances into these categories, which ultimately reflects its overall performance. The following table illustrates the various terms in detail.
 
-    \begin{table}[H]
+    \begin{table}[H] \label{fpfnfptn}
         \centering
-        \begin{tabular}{c|cc}
+        \begin{tabular}{c|c|c}
                            & \tit{predicted} yes & \tit{predicted} no \\
             \hline
             \tit{true} yes & true positive (TP) & false negative (FN) \\
@@ -419,7 +425,7 @@
     
     and consider two hypotheses $h_1$ and $h_2$ such that $h_1$ has 90\% of \tit{accuracy} and $h_2$ has 85\% of \tit{accuracy} --- assuming that both hypotheses were computed as accurately as possible, without bias. This may suggest that $h_1$ is better than $h_2$, but consider the following hypothesis: $$h_1 \in H \mid \forall x \in X \quad h(x) = -$$ clearly, this hypothesis has 90\% accuracy because, when tested on $D$, which consists of 90\% \tit{negative samples}, it will be correct exactly 90\% of the time. However, this hypothesis is not a \tit{suitable solution} for a CL problem, as it fails to model any realistic scenarios.
 
-    The problem arises from having \tbf{too many} \tit{negative samples} in the dataset. This poses a \tit{significant challenge} in ML because an \tit{overabundance} of samples of the same type makes it difficult to develop models that can classify accurately.
+    The issue arises from having \tbf{too many} \tit{negative samples} in the dataset. This poses a \tit{significant challenge} in ML because an \tit{overabundance} of samples of the same type makes it difficult to develop models that can classify accurately.
 
     This example clearly shows that, in general, \tbf{accuracy} alone is \tit{not enough} to assess the performance of the solution of a classification problem, as \tbf{unbalanced datases} are \tit{very common} in real-world scenarios (e.g. anomaly detection).
 
@@ -445,5 +451,70 @@
         \item \tbf{false positive rate}: $$\mathrm{FPR} := \dfrac{\mathrm{FP}}{\mathrm{TN} + \mathrm{FP}}$$
         \item \tbf{false negative rate}: $$\mathrm{FNR} := \dfrac{\mathrm{FN}}{\mathrm{TP} + \mathrm{FN}}$$
     \end{itemize}
+
+    Note that \cref{fpfnfptn} can be extended with other type of \tbf{classes} too --- in the table shown, there are two classes, namely the \tit{true class} and the \tit{predicted class}. For instance, if there are $n$ type of classes, the following table can be created
+    
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{|c|c|c|c|}
+            \hline
+            $T/P$ & $C_1$ & $\ldots$ & $C_n$ \\
+            \hline
+            $C_1$ & & & \\
+            \hline
+            $\vdots$ & & & \\
+            \hline
+            $C_n$ & & & \\
+            \hline
+        \end{tabular}
+    \end{table}
+
+    This matrix is called \tbf{multi-class confusion matrix}. Note that a cell $c_{i, j}$ represents how many times an instance of class $C_i$ is classified in class $C_j$. Moreover, the \tbf{diagonal} of this matrix contains the \tit{accuracy} of each class, and the values that lie outside the diagonal can be used to determine which classes are \tbf{confused} the most. Clearly, the sum $\sum_{j = 1}^n {c_{i, j}}$ of the cells in the $i$-th row add up to the total number of saples of class $C_i$ of the dataset. Usually, confusion matrices are represented as colored tables.
+
+    \centeredimage[A multi-class confusion matrix.]{0.25}{../assets/confusion.png}
+
+    \subsection{Regression performance}
+
+    Consider a \href{https://en.wikipedia.org/wiki/Regression_analysis}{regression problem} defined by a target function $\func{f}{X}{\R^d}$ and a testing set $S = \{(x_i, t_i) \mid i \in [1, n], x_i \in X, t_i \in \R^d\}$. The \tbf{performance} of regression problems can be assessed using multiple methods, which are all expressed in terms of $$|\hat f(x_i) - t_i|$$ for some $(x_i, t_i) \in S$, which measures how much the estimated value $\hat f(x_i)$ of $x_i$ differs from the known value $t_i$ of $x_i$.
+
+    \begin{frameddefn}{Mean Absolute Error}
+        Given a regression problem, the \tbf{mean absolute error} (MAE) is defined as follows $$\mathrm{MAE} := \dfrac{1}{n} \sum_{i = 1}^n {|\hat f(x_i) - t_i|}$$
+    \end{frameddefn}
+
+    \begin{frameddefn}{Mean Squared Error}
+        Given a regression problem, the \tbf{mean squared error} (MSE) is defined as follows $$\mathrm{MSE} := \dfrac{1}{n} \sum_{i = 1}^n {\rbk{\hat f(x_i) - t_i}^2}$$ Additionally, the \tbf{root mean squared error} (RMSE) is defined as $\sqrt{\mathrm{MSE}}$.
+    \end{frameddefn}
+
+    \begin{frameddefn}{Mean Absolute Percentage Error}
+        Given a regression problem, the \tbf{mean absolute percentage error} (MAPE) is defined as follows $$\mathrm{MAPE} := \dfrac{1}{n} \sum_{i = 1}^n{\dfrac{|\hat f(x_i) - t_i|}{t_i}}$$
+    \end{frameddefn}
+
+    \begin{frameddefn}{Mean Squared Percentage Error}
+        Given a regression problem, the \tbf{mean absolute percentage error} (MAPE) is defined as follows $$\mathrm{MAPE} := \dfrac{100}{n} \sum_{i = 1}^n{\dfrac{|\hat f(x_i) - t_i|}{t_i}}$$
+    \end{frameddefn}
+
+    \begin{frameddefn}{Mean Squared Percentage Error}
+        Given a regression problem, the \tbf{mean absolute percentage error} (MAPE) is defined as follows $$\mathrm{MAPE} := \dfrac{100}{n} \sum_{i = 1}^n{\rbk{\dfrac{\hat f(x_i) - t_i}{t_i}}^2}$$ Analogously, the \tbf{root mean squared percentage error} (RMSPE) is defined as $\sqrt{MSPE}$.
+    \end{frameddefn}
+
+    Lastly, note that the $k$-fold cross validation procedure (described in \cref{k-fold1}) can be modified for regression problems, using appropriate metrics.
+
+    \begin{framedalgo}[label={k-fold3}]{$k$-fold Cross Validation (regression)}
+        Given a regression problem, the algorithm returns an \tit{unbiased estimator} of the \tit{expected value} of the the \tit{sample error}. \\
+        \hrule
+        \quad
+        \begin{algorithmic}[1]
+            \Function{kFoldCrossValidationRegr}{$D$, $L$, $k$, $\alpha$}
+                \State Partition $D$ into $k$ disjoint sets $S_1, \ldots , S_k$, such that $\forall i \in [i, k] \quad \abs{S_i} > \alpha$
+                \For{$i \in [1, k]$}
+                    \State $T_i := D - S_i$ \Comment{note that $T_i \cap S_i = \varnothing$}
+                    \State $h_i := L(T_i)$
+                    \State $\delta_i := \mathrm{MAE}_{S_i}(h_i)$
+                \EndFor
+                \State $\mathrm{MAE}_{L, D} := \frac{1}{k} \sum_{i = 1}^k{\delta_i}$
+                \State \textbf{return} $\mathrm{MAE}_{L, D}$
+            \EndFunction
+        \end{algorithmic}
+    \end{framedalgo}
 
 \end{document}

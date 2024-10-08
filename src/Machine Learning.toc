@@ -11,5 +11,6 @@
 \contentsline {subsection}{\numberline {1.1.5}Representation issues}{6}{subsection.1.1.5}%
 \contentsline {subsection}{\numberline {1.1.6}Data noise issues}{8}{subsection.1.1.6}%
 \contentsline {section}{\numberline {1.2}Performance evaluation}{8}{section.1.2}%
-\contentsline {subsection}{\numberline {1.2.1}Errors and accuracy}{8}{subsection.1.2.1}%
-\contentsline {subsection}{\numberline {1.2.2}Classification performance}{13}{subsection.1.2.2}%
+\contentsline {subsection}{\numberline {1.2.1}Classification problems}{8}{subsection.1.2.1}%
+\contentsline {subsection}{\numberline {1.2.2}Classification accuracy}{13}{subsection.1.2.2}%
+\contentsline {subsection}{\numberline {1.2.3}Regression performance}{16}{subsection.1.2.3}%
